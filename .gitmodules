@@ -1,0 +1,6 @@
+[submodule "jws"]
+	path = jws
+	url = git@github.com:jmuncaster/jws
+[submodule "zpubctrl"]
+	path = zpubctrl
+	url = git@github.com:jmuncaster/zpubctrl
