@@ -54,15 +54,13 @@ int main(int argc, char* argv[]) {
   // Main loop cycles through texts in response to user input
   try {
     zpubctrl::CtrlClient ctrl_client;
-    vector<string> texts = {"{}", "{}", "", "{}"};
+    vector<string> texts = {"%Y-%m-%d", "%Y-%m-%d", "%Y-%m-%d", "%Y-%m-%d"};
     for (size_t i = 0; !quit && i < texts.size(); ++i) {
       try {
-        json j = R"({ "format": "%Y-%m-%d" })"_json;
-        //auto text = texts[i % texts.size()];
-        //json request_json = json::parse(text);
-        //auto reply = ctrl_client.request(request_json.dump(), timeout_ms);
-        //auto reply = ctrl_client.request(text, timeout_ms);
-        auto reply = ctrl_client.request(j.dump(), timeout_ms);
+        json format_request = {
+          {"format", texts[i % texts.size()]}
+        };
+        auto reply = ctrl_client.request(format_request.dump(), timeout_ms);
         auto status_json = json::parse(reply);
         time_server_ctrl_validator.validate(status_json);
         if (status_json["error"]) {
