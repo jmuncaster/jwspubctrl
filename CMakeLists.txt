@@ -8,3 +8,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_subdirectory(jws)
 add_subdirectory(zpubctrl)
 
+add_executable(time_server examples/simple_server.cpp)
+target_link_libraries(time_server jws zpubctrl)
+
+add_executable(time_client examples/simple_client.cpp)
+target_link_libraries(time_client jws zpubctrl pthread)
