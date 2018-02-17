@@ -1,0 +1,9 @@
+{
+    "title": "Time Report",
+    "type": "object",
+    "properties": {
+        "datetime": { "type": "string" },
+        "format": { "type": "string" }
+    },
+    "required": ["datetime"]
+}

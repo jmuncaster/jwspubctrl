@@ -12,14 +12,16 @@ const int timeout_ms = 5000;
 
 int main(int argc, char* argv[]) {
 
-  string time_report_schema_filename = "time_report_schema.json";
-  cout << "Load " << time_report_schema_filename << endl;
-  auto time_report_validator = jws::load_validator(time_report_schema_filename);
+  if (argc != 3) {
+    cout << "usage: time_server <time_report_schema.json> <time_server_ctrl_schema.json>" << endl;
+    return 1;
+  }
 
-  string time_server_ctrl_schema_filename = "time_server_ctrl_schema.json";
-  cout << "Load " << time_server_ctrl_schema_filename << endl;
-  auto time_server_ctrl_validator = jws::load_validator(time_server_ctrl_schema_filename);
+  cout << "Load " << argv[1] << endl;
+  auto time_report_validator = jws::load_validator(argv[1]);
 
+  cout << "Load " << argv[2] << endl;
+  auto time_server_ctrl_validator = jws::load_validator(argv[2]);
 
   cout << "Start client. Press ENTER to cycle through texts..." << endl;
 
@@ -55,10 +57,12 @@ int main(int argc, char* argv[]) {
     vector<string> texts = {"{}", "{}", "", "{}"};
     for (size_t i = 0; !quit && i < texts.size(); ++i) {
       try {
-        auto text = texts[i % texts.size()];
+        json j = R"({ "format": "%Y-%m-%d" })"_json;
+        //auto text = texts[i % texts.size()];
         //json request_json = json::parse(text);
         //auto reply = ctrl_client.request(request_json.dump(), timeout_ms);
-        auto reply = ctrl_client.request(text, timeout_ms);
+        //auto reply = ctrl_client.request(text, timeout_ms);
+        auto reply = ctrl_client.request(j.dump(), timeout_ms);
         auto status_json = json::parse(reply);
         time_server_ctrl_validator.validate(status_json);
         if (status_json["error"]) {

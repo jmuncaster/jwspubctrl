@@ -23,13 +23,16 @@ string current_time_and_date()
 // Main server process runs a program loop, publishes feed, and checks for control messages
 int main(int argc, char** argv) {
 
-  string time_report_schema_filename = "time_report_schema.json";
-  cout << "Load " << time_report_schema_filename << endl;
-  auto time_report_validator = jws::load_validator(time_report_schema_filename);
+  if (argc != 3) {
+    cout << "usage: time_server <time_report_schema.json> <time_server_ctrl_schema.json>" << endl;
+    return 1;
+  }
 
-  string time_server_ctrl_schema_filename = "time_server_ctrl_schema.json";
-  cout << "Load " << time_server_ctrl_schema_filename << endl;
-  auto time_server_ctrl_validator = jws::load_validator(time_server_ctrl_schema_filename);
+  cout << "Load " << argv[1] << endl;
+  auto time_report_validator = jws::load_validator(argv[1]);
+
+  cout << "Load " << argv[2] << endl;
+  auto time_server_ctrl_validator = jws::load_validator(argv[2]);
 
   zpubctrl::Server server;
   cout << "Start server" << endl;
