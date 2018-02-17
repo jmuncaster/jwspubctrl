@@ -54,8 +54,8 @@ int main(int argc, char* argv[]) {
   // Main loop cycles through texts in response to user input
   try {
     zpubctrl::CtrlClient ctrl_client;
-    vector<string> texts = {"%Y-%m-%d", "%Y-%m-%d", "%Y-%m-%d", "%Y-%m-%d"};
-    for (size_t i = 0; !quit && i < texts.size(); ++i) {
+    vector<string> texts = {"%Y-%m-%d", "%X", "%Y-%m-%d %X", "%Y-%m-%d"};
+    for (size_t i = 0; !quit /*&& i < texts.size()*/; ++i) {
       try {
         json format_request = {
           {"format", texts[i % texts.size()]}

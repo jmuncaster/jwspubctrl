@@ -11,12 +11,12 @@
 using namespace std;
 using jws::json;
 
-string current_time_and_date()
+string current_time_and_date(const string& format)
 {
   auto now = chrono::system_clock::now();
   auto in_time_t = chrono::system_clock::to_time_t(now);
   stringstream ss;
-  ss << std::put_time(localtime(&in_time_t), "%Y-%m-%d %X");
+  ss << std::put_time(localtime(&in_time_t), format.c_str());
   return ss.str();
 }
 
@@ -39,6 +39,8 @@ int main(int argc, char** argv) {
   cout << "  * publish port: " << zpubctrl::default_data_port << endl;;
   cout << "  * control port: " << zpubctrl::default_ctrl_port << endl;;
 
+  string format = "%Y-%m-%d %X";
+
   while (true) {
 
     // Check for ctrl request to change the text
@@ -48,8 +50,7 @@ int main(int argc, char** argv) {
         auto ctrl_json = json::parse(request);
         time_server_ctrl_validator.validate(ctrl_json);
 
-        //TODO: do something
-        //cout << "" << endl;
+        format = ctrl_json["format"];
 
         json reply_json = {
           {"error", false},
@@ -75,7 +76,7 @@ int main(int argc, char** argv) {
 
     // Do some 'work'
     json time_report_json = {
-      {"datetime", current_time_and_date()}
+      {"datetime", current_time_and_date(format)}
     };
     time_report_validator.validate(time_report_json);
 
