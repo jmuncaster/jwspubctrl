@@ -12,8 +12,8 @@ const int timeout_ms = 5000;
 
 int main(int argc, char* argv[]) {
 
-  if (argc != 3) {
-    cout << "usage: time_server <time_report_schema.json> <time_server_ctrl_schema.json>" << endl;
+  if (argc != 4) {
+    cout << "usage: time_client <time_server_publish_schema.json> <time_server_ctrl_request_schema.json> <time_server_ctrl_reply_schema.json>" << endl;
     return 1;
   }
 
@@ -22,6 +22,9 @@ int main(int argc, char* argv[]) {
 
   cout << "Load " << argv[2] << endl;
   auto time_server_ctrl_validator = jws::load_validator(argv[2]);
+
+  cout << "Load " << argv[3] << endl;
+  auto time_server_ctrl_reply_validator = jws::load_validator(argv[3]);
 
   cout << "Start client. Press ENTER to cycle through texts..." << endl;
 
@@ -60,9 +63,10 @@ int main(int argc, char* argv[]) {
         json format_request = {
           {"format", texts[i % texts.size()]}
         };
+        time_server_ctrl_validator.validate(format_request);
         auto reply = ctrl_client.request(format_request.dump(), timeout_ms);
         auto status_json = json::parse(reply);
-        time_server_ctrl_validator.validate(status_json);
+        time_server_ctrl_reply_validator.validate(status_json);
         if (status_json["error"]) {
           cout << "\n==> error, server says: " << status_json["message"] << endl;
         }

@@ -23,8 +23,8 @@ string current_time_and_date(const string& format)
 // Main server process runs a program loop, publishes feed, and checks for control messages
 int main(int argc, char** argv) {
 
-  if (argc != 3) {
-    cout << "usage: time_server <time_report_schema.json> <time_server_ctrl_schema.json>" << endl;
+  if (argc != 4) {
+    cout << "usage: time_server <time_server_publish_schema.json> <time_server_ctrl_request_schema.json> <time_server_ctrl_reply_schema.json>" << endl;
     return 1;
   }
 
@@ -33,6 +33,9 @@ int main(int argc, char** argv) {
 
   cout << "Load " << argv[2] << endl;
   auto time_server_ctrl_validator = jws::load_validator(argv[2]);
+
+  cout << "Load " << argv[3] << endl;
+  auto time_server_ctrl_reply_validator = jws::load_validator(argv[3]);
 
   zpubctrl::Server server;
   cout << "Start server" << endl;
@@ -56,7 +59,7 @@ int main(int argc, char** argv) {
           {"error", false},
           {"message", "OK"}
         };
-        time_server_ctrl_validator.validate(reply_json);
+        time_server_ctrl_reply_validator.validate(reply_json);
         return reply_json.dump();
       }
       catch (exception& e) {
