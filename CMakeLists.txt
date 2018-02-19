@@ -8,7 +8,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_subdirectory(jws)
 add_subdirectory(zpubctrl)
 
-add_library(zjwspubctrl zjwspubctrl/server.cpp)
+add_library(zjwspubctrl
+  zjwspubctrl/server.cpp
+  zjwspubctrl/ctrl_client.cpp
+  zjwspubctrl/sub_client.cpp)
 target_include_directories(zjwspubctrl INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(zjwspubctrl jws zpubctrl)
 
@@ -19,3 +22,5 @@ target_link_libraries(time_server2 zjwspubctrl)
 
 add_executable(time_client examples/simple_client.cpp)
 target_link_libraries(time_client jws zpubctrl pthread)
+add_executable(time_client2 examples/simple_client2.cpp)
+target_link_libraries(time_client2 zjwspubctrl pthread)
