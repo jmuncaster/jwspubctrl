@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.2.2)
 
-project(cortex_comms)
+project(zjwspubctrl)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -15,12 +15,8 @@ add_library(zjwspubctrl
 target_include_directories(zjwspubctrl INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(zjwspubctrl jws zpubctrl)
 
-add_executable(time_server examples/simple_server.cpp)
-target_link_libraries(time_server jws zpubctrl)
-add_executable(time_server2 examples/simple_server2.cpp)
-target_link_libraries(time_server2 zjwspubctrl)
+add_executable(time_server examples/time_server.cpp)
+target_link_libraries(time_server zjwspubctrl)
 
-add_executable(time_client examples/simple_client.cpp)
-target_link_libraries(time_client jws zpubctrl pthread)
-add_executable(time_client2 examples/simple_client2.cpp)
-target_link_libraries(time_client2 zjwspubctrl pthread)
+add_executable(time_client examples/time_client.cpp)
+target_link_libraries(time_client zjwspubctrl pthread)
