@@ -15,8 +15,13 @@ add_library(zjwspubctrl
 target_include_directories(zjwspubctrl INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(zjwspubctrl jws zpubctrl)
 
-add_executable(time_server examples/time_server.cpp)
-target_link_libraries(time_server zjwspubctrl)
+# Examples
+option(BUILD_ZJWSPUBCTRL_EXAMPLES "Build examples" OFF)
+if (BUILD_ZJWSPUBCTRL_EXAMPLES)
+  add_executable(time_server examples/time_server.cpp)
+  target_link_libraries(time_server zjwspubctrl)
 
-add_executable(time_client examples/time_client.cpp)
-target_link_libraries(time_client zjwspubctrl pthread)
+  add_executable(time_client examples/time_client.cpp)
+  target_link_libraries(time_client zjwspubctrl pthread)
+endif()
+
