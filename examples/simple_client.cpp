@@ -13,7 +13,7 @@ const int timeout_ms = 5000;
 int main(int argc, char* argv[]) {
 
   if (argc != 4) {
-    cout << "usage: time_client <time_server_publish_schema.json> <time_server_ctrl_request_schema.json> <time_server_ctrl_reply_schema.json>" << endl;
+    cout << "usage: time_client <publish_schema.json> <ctrl_request.json> <ctrl_reply.json>" << endl;
     return 1;
   }
 

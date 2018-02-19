@@ -24,7 +24,7 @@ string current_time_and_date(const string& format)
 int main(int argc, char** argv) {
 
   if (argc != 4) {
-    cout << "usage: time_server <time_server_publish_schema.json> <time_server_ctrl_request_schema.json> <time_server_ctrl_reply_schema.json>" << endl;
+    cout << "usage: time_server <publish_schema.json> <ctrl_request.json> <ctrl_reply.json>" << endl;
     return 1;
   }
 
