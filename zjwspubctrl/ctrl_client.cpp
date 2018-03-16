@@ -1,4 +1,5 @@
 #include "ctrl_client.hpp"
+#include <jws/json_with_schema.hpp>
 #include <zpubctrl/ctrl_client.hpp>
 #include <functional>
 #include <memory>
@@ -13,8 +14,8 @@ namespace zjwspubctrl {
       const std::string& server_address,
       int ctrl_port) :
       _client(server_address, ctrl_port) {
-      _ctrl_request_validator.set_root_schema(ctrl_request_schema);
-      _ctrl_reply_validator.set_root_schema(ctrl_reply_schema);
+      _ctrl_request_validator = jws::load_validator(ctrl_request_schema);
+      _ctrl_reply_validator = jws::load_validator(ctrl_reply_schema);
     }
     zpubctrl::CtrlClient _client;
     jws::json_validator _ctrl_request_validator;
