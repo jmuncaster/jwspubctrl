@@ -1,4 +1,5 @@
 #include "server.hpp"
+#include <jws/json_with_schema.hpp>
 #include <zpubctrl/server.hpp>
 
 using namespace std;
@@ -14,9 +15,9 @@ namespace zjwspubctrl {
       int ctrl_port) :
       _server(pub_port, ctrl_port) {
 
-      _pub_validator.set_root_schema(publish_schema);
-      _ctrl_request_validator.set_root_schema(ctrl_request_schema);
-      _ctrl_reply_validator.set_root_schema(ctrl_reply_schema);
+      _pub_validator = jws::load_validator(publish_schema);
+      _ctrl_request_validator = jws::load_validator(ctrl_request_schema);
+      _ctrl_reply_validator = jws::load_validator(ctrl_reply_schema);
     }
     zpubctrl::Server _server;
     jws::json_validator _pub_validator;

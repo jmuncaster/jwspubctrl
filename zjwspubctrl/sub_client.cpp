@@ -1,4 +1,5 @@
 #include "sub_client.hpp"
+#include <jws/json_with_schema.hpp>
 #include <zpubctrl/sub_client.hpp>
 #include <functional>
 #include <memory>
@@ -12,7 +13,7 @@ namespace zjwspubctrl {
       const std::string& server_address,
       int pub_port) :
       _client(server_address, pub_port) {
-      _pub_validator.set_root_schema(pub_schema);
+      _pub_validator = jws::load_validator(pub_schema);
     }
     zpubctrl::SubClient _client;
     jws::json_validator _pub_validator;
