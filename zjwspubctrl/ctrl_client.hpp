@@ -23,6 +23,12 @@ namespace zjwspubctrl {
         const std::string& server_address = zpubctrl::default_host,
         int ctrl_port = zpubctrl::default_ctrl_port);
 
+      CtrlClient(
+        const char* ctrl_request_schema_filename,
+        const char* ctrl_reply_schema_filename,
+        const std::string& server_address = zpubctrl::default_host,
+        int ctrl_port = zpubctrl::default_ctrl_port);
+
       ~CtrlClient();
 
       // Synchronously issue a request and wait for the reply.

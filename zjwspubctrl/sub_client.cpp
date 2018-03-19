@@ -19,13 +19,17 @@ namespace zjwspubctrl {
     jws::json_validator _pub_validator;
   };
 
+  SubClient::SubClient(const jws::json& pub_schema, const std::string& server_address, int pub_port) :
+    _detail(new Detail(pub_schema, server_address, pub_port)) {
+  }
+
   SubClient::SubClient(const std::string& pub_schema_filename, const std::string& server_address, int pub_port) {
     auto pub_schema = !pub_schema_filename.empty() ? jws::load_json(pub_schema_filename) : jws::json{};
     _detail.reset(new Detail(pub_schema, server_address, pub_port));
   }
 
-  SubClient::SubClient(const jws::json& pub_schema, const std::string& server_address, int pub_port) :
-    _detail(new Detail(pub_schema, server_address, pub_port)) {
+  SubClient::SubClient(const char* pub_schema_filename, const std::string& server_address, int pub_port) :
+    SubClient(std::string(pub_schema_filename), server_address, pub_port) {
   }
 
   SubClient::~SubClient() {

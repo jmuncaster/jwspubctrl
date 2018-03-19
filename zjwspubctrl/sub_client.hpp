@@ -20,6 +20,11 @@ namespace zjwspubctrl {
         const std::string& server_address = zpubctrl::default_host,
         int pub_port = zpubctrl::default_data_port);
 
+      SubClient(
+        const char* pub_schema_filename,
+        const std::string& server_address = zpubctrl::default_host,
+        int pub_port = zpubctrl::default_data_port);
+
       ~SubClient();
 
       // Polls subscription for data

@@ -26,6 +26,15 @@ namespace zjwspubctrl {
   };
 
   Server::Server(
+    const jws::json& publish_schema,
+    const jws::json& ctrl_request_schema,
+    const jws::json& ctrl_reply_schema,
+    int pub_port,
+    int ctrl_port) :
+    _detail(new Detail(publish_schema, ctrl_request_schema, ctrl_reply_schema, pub_port, ctrl_port)) {
+  }
+
+  Server::Server(
     const std::string& publish_schema_filename,
     const std::string& ctrl_request_schema_filename,
     const std::string& ctrl_reply_schema_filename,
@@ -39,12 +48,17 @@ namespace zjwspubctrl {
   }
 
   Server::Server(
-    const jws::json& publish_schema,
-    const jws::json& ctrl_request_schema,
-    const jws::json& ctrl_reply_schema,
+    const char* publish_schema_filename,
+    const char* ctrl_request_schema_filename,
+    const char* ctrl_reply_schema_filename,
     int pub_port,
     int ctrl_port) :
-    _detail(new Detail(publish_schema, ctrl_request_schema, ctrl_reply_schema, pub_port, ctrl_port)) {
+      Server(
+        std::string(publish_schema_filename),
+        std::string(ctrl_request_schema_filename),
+        std::string(ctrl_reply_schema_filename),
+        pub_port,
+        ctrl_port) {
   }
 
   Server::~Server() { // req'd for pimpl pattern

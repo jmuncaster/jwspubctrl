@@ -26,6 +26,13 @@ namespace zjwspubctrl {
         int pub_port = zpubctrl::default_data_port,
         int ctrl_port = zpubctrl::default_ctrl_port);
 
+      Server(
+        const char* publish_schema_filename,
+        const char* ctrl_request_schema_filename = "",
+        const char* ctrl_reply_schema_filename = "",
+        int pub_port = zpubctrl::default_data_port,
+        int ctrl_port = zpubctrl::default_ctrl_port);
+
       ~Server();
 
       // Polls ctrl socket for request. If there is a request, respond with reply.
