@@ -10,7 +10,16 @@ namespace zjwspubctrl {
   // Client subscribes to a data stream
   class SubClient {
     public:
-      SubClient(const jws::json& pub_schema, const std::string& server_address = zpubctrl::default_host, int pub_port = zpubctrl::default_data_port);
+      SubClient(
+        const jws::json& pub_schema,
+        const std::string& server_address = zpubctrl::default_host,
+        int pub_port = zpubctrl::default_data_port);
+
+      SubClient(
+        const std::string& pub_schema_filename,
+        const std::string& server_address = zpubctrl::default_host,
+        int pub_port = zpubctrl::default_data_port);
+
       ~SubClient();
 
       // Polls subscription for data

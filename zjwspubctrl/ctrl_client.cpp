@@ -23,6 +23,14 @@ namespace zjwspubctrl {
   };
 
   CtrlClient::CtrlClient(
+      const std::string& ctrl_request_schema_filename,
+      const std::string& ctrl_reply_schema_filename,
+      const std::string& server_address,
+      int ctrl_port) :
+    _detail(new Detail(jws::load_json(ctrl_request_schema_filename), jws::load_json(ctrl_reply_schema_filename), server_address, ctrl_port)) {
+  }
+
+  CtrlClient::CtrlClient(
       const jws::json& ctrl_request_schema,
       const jws::json& ctrl_reply_schema,
       const std::string& server_address,
