@@ -26,6 +26,19 @@ namespace zjwspubctrl {
   };
 
   Server::Server(
+    const std::string& publish_schema_filename,
+    const std::string& ctrl_request_schema_filename,
+    const std::string& ctrl_reply_schema_filename,
+    int pub_port,
+    int ctrl_port) {
+    // Load schema or leave empty if filename is empty
+    auto publish_schema =           !publish_schema_filename.empty() ? jws::load_json(publish_schema_filename) : jws::json{};
+    auto ctrl_request_schema = !ctrl_request_schema_filename.empty() ? jws::load_json(ctrl_request_schema_filename) : jws::json{};
+    auto ctrl_reply_schema =     !ctrl_reply_schema_filename.empty() ? jws::load_json(ctrl_reply_schema_filename) : jws::json{};
+    _detail.reset(new Detail(publish_schema, ctrl_request_schema, ctrl_reply_schema, pub_port, ctrl_port));
+  }
+
+  Server::Server(
     const jws::json& publish_schema,
     const jws::json& ctrl_request_schema,
     const jws::json& ctrl_reply_schema,
