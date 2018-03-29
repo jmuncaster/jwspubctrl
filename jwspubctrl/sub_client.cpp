@@ -1,11 +1,11 @@
 #include "sub_client.hpp"
 #include <jws/json_with_schema.hpp>
-#include <zpubctrl/sub_client.hpp>
+#include <wspubctrl/sub_client.hpp>
 #include <functional>
 #include <memory>
 #include <string>
 
-namespace zjwspubctrl {
+namespace jwspubctrl {
 
   struct SubClient::Detail {
     Detail(
@@ -14,7 +14,7 @@ namespace zjwspubctrl {
       _client(pub_uri) {
       _pub_validator = jws::load_validator(pub_schema);
     }
-    zpubctrl::SubClient _client;
+    wspubctrl::SubClient _client;
     jws::json_validator _pub_validator;
   };
 

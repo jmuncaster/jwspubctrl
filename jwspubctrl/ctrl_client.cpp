@@ -1,11 +1,11 @@
 #include "ctrl_client.hpp"
 #include <jws/json_with_schema.hpp>
-#include <zpubctrl/ctrl_client.hpp>
+#include <wspubctrl/ctrl_client.hpp>
 #include <functional>
 #include <memory>
 #include <string>
 
-namespace zjwspubctrl {
+namespace jwspubctrl {
 
   struct CtrlClient::Detail {
     Detail(
@@ -16,7 +16,7 @@ namespace zjwspubctrl {
       _ctrl_request_validator = jws::load_validator(ctrl_request_schema);
       _ctrl_reply_validator = jws::load_validator(ctrl_reply_schema);
     }
-    zpubctrl::CtrlClient _client;
+    wspubctrl::CtrlClient _client;
     jws::json_validator _ctrl_request_validator;
     jws::json_validator _ctrl_reply_validator;
   };

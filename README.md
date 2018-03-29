@@ -22,9 +22,9 @@ These instructions assume you are using [cmake](cmake.org) and you have installe
 
 In your CMakeLists.txt, add:
 ```CMake
-add_subdirectory(path/to/zjwspubctrl zjwspubctrl)
+add_subdirectory(path/to/jwspubctrl jwspubctrl)
 add_executable(myserver myserver.cpp)
-target_link_libraries(myserver zjwspubctrl)
+target_link_libraries(myserver jwspubctrl)
 ```
 
 ### Example
@@ -32,7 +32,7 @@ target_link_libraries(myserver zjwspubctrl)
 Server:
 ```C++
 #include <jws/json_with_schema.hpp>
-#include <zjwspubctrl/server.hpp>
+#include <jwspubctrl/server.hpp>
 #include <cstdlib>
 #include <iostream>
 #include <thread>
@@ -46,7 +46,7 @@ int main(int argc, char** argv) {
   auto ctrl_request_schema = jws::load_json("ctrl_request_schema.json");
   auto ctrl_reply_schema = jws::load_json("ctrl_reply_schema.json");
 
-  zjwspubctrl::Server server(pub_schema, ctrl_request_schema, ctrl_reply_schema);
+  jwspubctrl::Server server(pub_schema, ctrl_request_schema, ctrl_reply_schema);
   cout << "Start server" << endl;
   cout << "  * publish port: " << zpubctrl::default_data_port << endl;;
   cout << "  * control port: " << zpubctrl::default_ctrl_port << endl;;
@@ -106,7 +106,7 @@ int main(int argc, char* argv[]) {
   atomic<bool> quit(false);
   thread sub_thread([&]() {
     try {
-      zjwspubctrl::SubClient sub_client(pub_schema);
+      jwspubctrl::SubClient sub_client(pub_schema);
       while (!quit) {
         // data is validated against pub_schema
         auto data = sub_client.wait_for_data(timeout_ms);
@@ -150,7 +150,7 @@ int main(int argc, char* argv[]) {
 
 To build examples, configure with
 ```bash
-cmake -D BUILD_ZJWSPUBCTRL_EXAMPLES=ON
+cmake -D BUILD_jwsPUBCTRL_EXAMPLES=ON
 ```
 
 Server: See examples/time_server.cpp

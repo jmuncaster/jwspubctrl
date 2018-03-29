@@ -1,13 +1,13 @@
 #pragma once
 
-#include <zpubctrl/constants.hpp>
+#include <wspubctrl/constants.hpp>
 #include <jws/json_with_schema.hpp>
 #include <functional>
 #include <memory>
 #include <stdexcept>
 #include <string>
 
-namespace zjwspubctrl {
+namespace jwspubctrl {
 
   // Server publishes data stream and accepts synchronous control requests.
   class Server {
@@ -16,19 +16,19 @@ namespace zjwspubctrl {
         const jws::json& publish_schema = {},
         const jws::json& ctrl_request_schema = {},
         const jws::json& ctrl_reply_schema = {},
-        int pub_port = zpubctrl::default_port);
+        int pub_port = wspubctrl::default_port);
 
       Server(
         const std::string& publish_schema_filename,
         const std::string& ctrl_request_schema_filename = "",
         const std::string& ctrl_reply_schema_filename = "",
-        int pub_port = zpubctrl::default_port);
+        int pub_port = wspubctrl::default_port);
 
       Server(
         const char* publish_schema_filename,
         const char* ctrl_request_schema_filename = "",
         const char* ctrl_reply_schema_filename = "",
-        int pub_port = zpubctrl::default_port);
+        int pub_port = wspubctrl::default_port);
 
       ~Server();
 

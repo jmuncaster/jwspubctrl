@@ -1,4 +1,4 @@
-#include <zjwspubctrl/server.hpp>
+#include <jwspubctrl/server.hpp>
 #include <chrono>
 #include <ctime>   // localtime
 #include <iostream>
@@ -36,10 +36,10 @@ int main(int argc, char** argv) {
   cout << "Load " << argv[3] << endl;
   auto time_server_ctrl_reply_schema = jws::load_json(argv[3]);
 
-  zjwspubctrl::Server server(time_report_schema, time_server_ctrl_schema, time_server_ctrl_reply_schema);
+  jwspubctrl::Server server(time_report_schema, time_server_ctrl_schema, time_server_ctrl_reply_schema);
   cout << "Start server" << endl;
-  cout << "  * publish: " << zpubctrl::default_pub_uri << endl;;
-  cout << "  * control: " << zpubctrl::default_ctrl_uri << endl;;
+  cout << "  * publish: " << wspubctrl::default_pub_uri << endl;;
+  cout << "  * control: " << wspubctrl::default_ctrl_uri << endl;;
 
   string format = "%Y-%m-%d %X";
 

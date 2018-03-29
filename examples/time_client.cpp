@@ -1,5 +1,5 @@
 #include <jws/json_with_schema.hpp>
-#include <zjwspubctrl/client.hpp>
+#include <jwspubctrl/client.hpp>
 #include <atomic>
 #include <iostream>
 #include <thread>
@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
   atomic<bool> quit(false);
   thread sub_thread([&]() {
     try {
-      zjwspubctrl::SubClient sub_client(time_report_schema);
+      jwspubctrl::SubClient sub_client(time_report_schema);
       while (!quit) {
         try {
           auto data_json = sub_client.wait_for_data(timeout_ms);
@@ -54,7 +54,7 @@ int main(int argc, char* argv[]) {
 
   // Main loop cycles through texts in response to user input
   try {
-    zjwspubctrl::CtrlClient ctrl_client(time_server_ctrl_schema, time_server_ctrl_reply_schema);
+    jwspubctrl::CtrlClient ctrl_client(time_server_ctrl_schema, time_server_ctrl_reply_schema);
     vector<string> texts = {"%Y-%m-%d", "%X", "%Y-%m-%d %X", "%Y-%m-%d", ""};
     for (size_t i = 0; !quit /*&& i < texts.size()*/; ++i) {
       try {

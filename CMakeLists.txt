@@ -6,14 +6,14 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_subdirectory(jws)
-add_subdirectory(zpubctrl)
+add_subdirectory(wspubctrl)
 
 add_library(jwspubctrl
   jwspubctrl/server.cpp
   jwspubctrl/ctrl_client.cpp
   jwspubctrl/sub_client.cpp)
 target_include_directories(jwspubctrl INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(jwspubctrl jws zpubctrl)
+target_link_libraries(jwspubctrl jws wspubctrl)
 
 # Examples
 option(BUILD_EXAMPLES "Build examples" OFF)

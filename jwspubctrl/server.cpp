@@ -1,10 +1,10 @@
 #include "server.hpp"
 #include <jws/json_with_schema.hpp>
-#include <zpubctrl/server.hpp>
+#include <wspubctrl/server.hpp>
 
 using namespace std;
 
-namespace zjwspubctrl {
+namespace jwspubctrl {
 
   struct Server::Detail {
     Detail(
@@ -18,7 +18,7 @@ namespace zjwspubctrl {
       _ctrl_request_validator = jws::load_validator(ctrl_request_schema);
       _ctrl_reply_validator = jws::load_validator(ctrl_reply_schema);
     }
-    zpubctrl::Server _server;
+    wspubctrl::Server _server;
     jws::json_validator _pub_validator;
     jws::json_validator _ctrl_request_validator;
     jws::json_validator _ctrl_reply_validator;
