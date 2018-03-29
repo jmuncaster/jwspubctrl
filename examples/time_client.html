@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>WebSocket Test</title>
+</head>
+<body>
+
+<script>
+  var wsPub, wsCtrl;
+  window.onload=function(){
+    wsPub = new WebSocket("ws://localhost:5554/pub");
+    wsPub.onmessage = function(evt) {
+      var payload = JSON.parse(evt.data);
+      document.getElementById("time").innerHTML = payload.datetime
+      console.log(evt.data);
+    }
+
+    wsCtrl = new WebSocket("ws://localhost:5554/ctrl");
+    wsCtrl.onmessage = function(evt) {
+      var payload = JSON.parse(evt.data);
+      console.log(payload);
+    }
+
+    document.getElementById("setFormatButton").onclick = function() {
+      var format = document.getElementById("formatTextBox").value
+      console.log("Setting format: " + format);
+      wsCtrl.send(JSON.stringify({"format": format}));
+    }
+  }
+  window.onclose=function(){
+    wsPub.close();
+    wsCtrl.close();
+  }
+</script>
+
+<h1>Time Client Example</h1>
+<p><b><span id="time"></span></b></p>
+<h2>Set Custom Format</h2>
+<p>E.g., %Y=year %m=month %d=day %X=time</p>
+<form action="#">
+  <input id="formatTextBox"   type="text"   value="%Y-%m-%d %X">
+  <input id="setFormatButton" type="button" value="Set Format">
+</form>
+
+</body>
+</html>
