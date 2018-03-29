@@ -38,8 +38,8 @@ int main(int argc, char** argv) {
 
   zjwspubctrl::Server server(time_report_schema, time_server_ctrl_schema, time_server_ctrl_reply_schema);
   cout << "Start server" << endl;
-  cout << "  * publish port: " << zpubctrl::default_data_port << endl;;
-  cout << "  * control port: " << zpubctrl::default_ctrl_port << endl;;
+  cout << "  * publish: " << zpubctrl::default_pub_uri << endl;;
+  cout << "  * control: " << zpubctrl::default_ctrl_uri << endl;;
 
   string format = "%Y-%m-%d %X";
 

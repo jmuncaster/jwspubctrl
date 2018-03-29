@@ -14,20 +14,17 @@ namespace zjwspubctrl {
       CtrlClient(
         const jws::json& ctrl_request_schema,
         const jws::json& ctrl_reply_schema,
-        const std::string& server_address = zpubctrl::default_host,
-        int ctrl_port = zpubctrl::default_ctrl_port);
+        const std::string& ctrl_uri = zpubctrl::default_ctrl_uri);
 
       CtrlClient(
         const std::string& ctrl_request_schema_filename,
         const std::string& ctrl_reply_schema_filename,
-        const std::string& server_address = zpubctrl::default_host,
-        int ctrl_port = zpubctrl::default_ctrl_port);
+        const std::string& ctrl_uri = zpubctrl::default_ctrl_uri);
 
       CtrlClient(
         const char* ctrl_request_schema_filename,
         const char* ctrl_reply_schema_filename,
-        const std::string& server_address = zpubctrl::default_host,
-        int ctrl_port = zpubctrl::default_ctrl_port);
+        const std::string& ctrl_uri = zpubctrl::default_ctrl_uri);
 
       ~CtrlClient();
 

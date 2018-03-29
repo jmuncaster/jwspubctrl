@@ -12,18 +12,15 @@ namespace zjwspubctrl {
     public:
       SubClient(
         const jws::json& pub_schema,
-        const std::string& server_address = zpubctrl::default_host,
-        int pub_port = zpubctrl::default_data_port);
+        const std::string& pub_uri = zpubctrl::default_pub_uri);
 
       SubClient(
         const std::string& pub_schema_filename,
-        const std::string& server_address = zpubctrl::default_host,
-        int pub_port = zpubctrl::default_data_port);
+        const std::string& pub_uri = zpubctrl::default_pub_uri);
 
       SubClient(
         const char* pub_schema_filename,
-        const std::string& server_address = zpubctrl::default_host,
-        int pub_port = zpubctrl::default_data_port);
+        const std::string& pub_uri = zpubctrl::default_pub_uri);
 
       ~SubClient();
 
