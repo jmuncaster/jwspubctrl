@@ -1,13 +1,13 @@
-# ZeroMQ Publisher and Control Socket with JSON Validation
+# WebSockets Publisher and Control Socket with JSON Validation
 
-This library wraps the [zpubctrl](https://github.com/jmuncaster/zpubctrl) library with JSON validation
+This library wraps the [wspubctrl](https://github.com/jmuncaster/wspubctrl) library with JSON validation
 capabilities. It is meant to provide an easy way to stream JSON data and accept JSON control messages
 with full validation of all messages.
 
 JSON validation is done using [jws](https://github.com/jmuncaster/jws), which is just a thin wrapper
 around [nlohmann/json](https://github.com/nlohmann/json) and [pboettch/json-schema-validator](https://github.com/pboettch/json-schema-validator).
 
-The networking backend is implemented in [zeromq](http://zeromq.org) with a [C++ wrapper](https://github.com/zeromq/cppzmq).
+The networking backend is based on [Simple-Websocket-Server](https://github.com/eidheim/Simple-WebSocket-Server).
 
 
 ## Getting Started
@@ -48,8 +48,8 @@ int main(int argc, char** argv) {
 
   jwspubctrl::Server server(pub_schema, ctrl_request_schema, ctrl_reply_schema);
   cout << "Start server" << endl;
-  cout << "  * publish port: " << zpubctrl::default_data_port << endl;;
-  cout << "  * control port: " << zpubctrl::default_ctrl_port << endl;;
+  cout << "  * publish port: " << wspubctrl::default_data_port << endl;;
+  cout << "  * control port: " << wspubctrl::default_ctrl_port << endl;;
 
   string text = "Hello World!";
 
@@ -84,7 +84,7 @@ int main(int argc, char** argv) {
 
 Client:
 ```C++
-#include <zpubctrl/client.hpp>
+#include <wspubctrl/client.hpp>
 #include <atomic>
 #include <iostream>
 #include <thread>
@@ -124,7 +124,7 @@ int main(int argc, char* argv[]) {
 
   // Main loop cycles through texts in response to user input
   try {
-    zpubctrl::CtrlClient ctrl_client;
+    wspubctrl::CtrlClient ctrl_client;
     vector<string> texts = {"Bonjour!", "Next we will try the empty string", "", "This is the last text"};
     for (size_t i = 0; !quit && i < texts.size(); ++i) {
       // Both the request and the reply are validated.
