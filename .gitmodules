@@ -2,5 +2,5 @@
 	path = jws
 	url = https://github.com/jmuncaster/jws
 [submodule "zpubctrl"]
-	path = zpubctrl
+	path = wspubctrl
 	url = https://github.com/jmuncaster/wspubctrl
