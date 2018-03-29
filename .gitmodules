@@ -3,4 +3,4 @@
 	url = https://github.com/jmuncaster/jws
 [submodule "zpubctrl"]
 	path = zpubctrl
-	url = https://github.com/jmuncaster/zpubctrl
+	url = https://github.com/jmuncaster/wspubctrl
