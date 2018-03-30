@@ -12,13 +12,9 @@ The networking backend is based on [Simple-Websocket-Server](https://github.com/
 
 ## Getting Started
 
-### Prerequisites
+## Build
 
-Add a snapshot of this repository to your source code or add it as a git submodule.
-
-### Build
-
-These instructions assume you are using [cmake](cmake.org) and you have installed ZeroMQ somewhere in your PATH.
+These instructions assume you are using [cmake](cmake.org).
 
 In your CMakeLists.txt, add:
 ```CMake
@@ -26,6 +22,17 @@ add_subdirectory(path/to/jwspubctrl jwspubctrl)
 add_executable(myserver myserver.cpp)
 target_link_libraries(myserver jwspubctrl)
 ```
+
+### Windows
+
+See [wspubctrl](https://github.com/jmuncaster/wspubctrl) for required dependencies.
+
+```bash
+$ mkdir build && cd build
+$ cmake -G "Visual Studio 14 2015 Win64" -D BOOST_ROOT='C:\path\to\boost' -D BUILD_EXAMPLES=ON -D BUILD_TESTS=ON ..
+$ cmake --build .
+```
+
 
 ### Examples
 
