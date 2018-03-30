@@ -21,7 +21,8 @@ if (BUILD_EXAMPLES)
   add_executable(time_server examples/time_server.cpp)
   target_link_libraries(time_server jwspubctrl)
 
+  find_package(Threads)
   add_executable(time_client examples/time_client.cpp)
-  target_link_libraries(time_client jwspubctrl pthread)
+  target_link_libraries(time_client jwspubctrl ${CMAKE_THREAD_LIBS_INIT})
 endif()
 
