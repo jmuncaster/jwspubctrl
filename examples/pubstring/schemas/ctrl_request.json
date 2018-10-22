@@ -1,0 +1,27 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "PubString Server Request",
+    "oneOf": [
+        { "$ref": "#/definitions/requests/get_message_size" },
+        { "$ref": "#/definitions/requests/set_message_size" }
+    ],
+    "definitions": {
+        "requests": {
+            "get_message_size": {
+                "type": "object",
+                "properties": {
+                    "request_type": { "enum": ["get_message_size"] }
+                },
+                "required": ["request_type"]
+            },
+            "set_message_size": {
+                "type": "object",
+                "properties": {
+                    "request_type": { "enum": ["set_message_size"] },
+                    "message_size": { "type": "integer", "minimum": 1 }
+                },
+                "required": ["request_type", "message_size"]
+            }
+        }
+    }
+}

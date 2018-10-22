@@ -103,5 +103,9 @@ namespace jwspubctrl {
     _detail->_server.publish_data(payload.dump());
   }
 
+  void Server::publish_raw(const std::string& payload) {
+    _detail->_server.publish_data(payload);
+  }
+
 }
 

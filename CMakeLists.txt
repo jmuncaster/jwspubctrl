@@ -18,11 +18,18 @@ target_link_libraries(jwspubctrl jws wspubctrl)
 # Examples
 option(BUILD_EXAMPLES "Build examples" OFF)
 if (BUILD_EXAMPLES)
-  add_executable(time_server examples/time_server.cpp)
+  find_package(Threads)
+
+  add_executable(time_server examples/time_server/time_server.cpp)
   target_link_libraries(time_server jwspubctrl)
 
-  find_package(Threads)
-  add_executable(time_client examples/time_client.cpp)
+  add_executable(time_client examples/time_server/time_client.cpp)
   target_link_libraries(time_client jwspubctrl ${CMAKE_THREAD_LIBS_INIT})
+
+  add_executable(pubstring_server examples/pubstring/pubstring_server.cpp)
+  target_link_libraries(pubstring_server jwspubctrl)
+
+  add_executable(pubstring_client examples/pubstring/pubstring_client.cpp)
+  target_link_libraries(pubstring_client jwspubctrl ${CMAKE_THREAD_LIBS_INIT})
 endif()
 

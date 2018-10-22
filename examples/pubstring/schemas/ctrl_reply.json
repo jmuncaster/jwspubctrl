@@ -1,0 +1,9 @@
+{
+    "title": "Pubstring Server Reply",
+    "type": "object",
+    "properties": {
+        "error": { "type": "boolean" },
+        "message": { "type": "string" }
+    },
+    "required": ["error", "message"]
+}
