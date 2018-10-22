@@ -41,4 +41,8 @@ namespace jwspubctrl {
     return data_json;
   }
 
+  std::string SubClient::wait_for_raw(int timeout_ms) {
+    return _detail->_client.wait_for_data(timeout_ms);
+  }
+
 }

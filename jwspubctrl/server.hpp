@@ -44,6 +44,8 @@ namespace jwspubctrl {
 
       // Publish a message to the pub socket
       void publish_data(const jws::json& payload);
+      void publish_raw(const std::string& payload);
+
 
     private:
       struct Detail;
