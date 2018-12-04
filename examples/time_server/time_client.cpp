@@ -27,12 +27,16 @@ int main(int argc, char* argv[]) {
   auto time_server_ctrl_reply_schema = jws::load_json(argv[3]);
 
   cout << "Start client. Press ENTER to cycle through texts..." << endl;
+  string server_uri = "localhost:" + to_string(wspubctrl::default_port);
+  cout << "  subscribe: " << server_uri + "/pub" << endl;
+  cout << "    control: " << server_uri + "/ctrl" << endl;
+  jwspubctrl::SubClient sub_client(server_uri + "/pub", time_report_schema);
 
   // Sub thread continuously reports the stream on the same line
   atomic<bool> quit(false);
+  cout << "Connecting to '" << server_uri << "'" << endl;
   thread sub_thread([&]() {
     try {
-      jwspubctrl::SubClient sub_client(time_report_schema);
       sub_client.start();
       while (!quit) {
         try {
@@ -55,7 +59,7 @@ int main(int argc, char* argv[]) {
 
   // Main loop cycles through texts in response to user input
   try {
-    jwspubctrl::CtrlClient ctrl_client(time_server_ctrl_schema, time_server_ctrl_reply_schema);
+    jwspubctrl::CtrlClient ctrl_client(server_uri + "/ctrl", time_server_ctrl_schema, time_server_ctrl_reply_schema);
     vector<string> texts = {"%Y-%m-%d", "%X", "%Y-%m-%d %X", "%Y-%m-%d", ""};
     for (size_t i = 0; !quit /*&& i < texts.size()*/; ++i) {
       try {

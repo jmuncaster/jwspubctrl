@@ -10,17 +10,9 @@ namespace jwspubctrl {
   // Client subscribes to a data stream
   class SubClient {
     public:
-      SubClient(
-        const jws::json& pub_schema,
-        const std::string& pub_uri = wspubctrl::default_pub_uri);
-
-      SubClient(
-        const std::string& pub_schema_filename,
-        const std::string& pub_uri = wspubctrl::default_pub_uri);
-
-      SubClient(
-        const char* pub_schema_filename,
-        const std::string& pub_uri = wspubctrl::default_pub_uri);
+      SubClient(const std::string& pub_uri, const jws::json& pub_schema);
+      SubClient(const std::string& pub_uri, const std::string& pub_schema_filename);
+      SubClient(const std::string& pub_uri, const char* pub_schema_filename);
 
       ~SubClient();
 

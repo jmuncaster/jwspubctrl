@@ -9,12 +9,12 @@ namespace jwspubctrl {
 
   struct CtrlClient::Detail {
     Detail(
+      const std::string& ctrl_uri,
       const jws::json& ctrl_request_schema,
-      const jws::json& ctrl_reply_schema,
-      const std::string& ctrl_uri) :
-      _client(ctrl_uri) {
-      _ctrl_request_validator = jws::load_validator(ctrl_request_schema);
-      _ctrl_reply_validator = jws::load_validator(ctrl_reply_schema);
+      const jws::json& ctrl_reply_schema)
+      : _client(ctrl_uri) {
+        _ctrl_request_validator = jws::load_validator(ctrl_request_schema);
+        _ctrl_reply_validator = jws::load_validator(ctrl_reply_schema);
     }
     wspubctrl::CtrlClient _client;
     jws::json_validator _ctrl_request_validator;
@@ -22,24 +22,24 @@ namespace jwspubctrl {
   };
 
   CtrlClient::CtrlClient(
+      const std::string& ctrl_uri,
       const jws::json& ctrl_request_schema,
-      const jws::json& ctrl_reply_schema,
-      const std::string& ctrl_uri) :
-    _detail(new Detail(ctrl_request_schema, ctrl_reply_schema, ctrl_uri)) {
+      const jws::json& ctrl_reply_schema)
+      : _detail(new Detail(ctrl_uri, ctrl_request_schema, ctrl_reply_schema)) {
   }
 
   CtrlClient::CtrlClient(
+      const std::string& ctrl_uri,
       const std::string& ctrl_request_schema_filename,
-      const std::string& ctrl_reply_schema_filename,
-      const std::string& ctrl_uri) :
-    _detail(new Detail(jws::load_json(ctrl_request_schema_filename), jws::load_json(ctrl_reply_schema_filename), ctrl_uri)) {
+      const std::string& ctrl_reply_schema_filename)
+      : _detail(new Detail(ctrl_uri, jws::load_json(ctrl_request_schema_filename), jws::load_json(ctrl_reply_schema_filename))) {
   }
 
   CtrlClient::CtrlClient(
+      const std::string& ctrl_uri,
       const char* ctrl_request_schema_filename,
-      const char* ctrl_reply_schema_filename,
-      const std::string& ctrl_uri) :
-        CtrlClient(std::string(ctrl_request_schema_filename), std::string(ctrl_reply_schema_filename), ctrl_uri) {
+      const char* ctrl_reply_schema_filename)
+      : CtrlClient(ctrl_uri, std::string(ctrl_request_schema_filename), std::string(ctrl_reply_schema_filename)) {
   }
 
   CtrlClient::~CtrlClient() {

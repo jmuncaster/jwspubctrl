@@ -34,11 +34,11 @@ int main(int argc, char** argv) {
   cout << "Load " << argv[2] << endl;
   auto ctrl_reply_schema = jws::load_json(argv[2]);
 
-  cout << "Start server" << endl;
+  cout << "Start server on port " << wspubctrl::default_port << endl;
   jwspubctrl::Server server(ctrl_request_schema, ctrl_reply_schema);
   server.add_publish_endpoint("/pub");
-  cout << "  * publish: " << wspubctrl::default_pub_uri << endl;;
-  cout << "  * control: " << wspubctrl::default_ctrl_uri << endl;;
+  cout << "  * publish: /pub" << endl;;
+  cout << "  * control: /ctrl" << endl;
 
   int message_size = 1024;
   std::uint16_t val = 0;

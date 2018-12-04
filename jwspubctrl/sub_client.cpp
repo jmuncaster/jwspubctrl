@@ -9,8 +9,8 @@ namespace jwspubctrl {
 
   struct SubClient::Detail {
     Detail(
-      const jws::json& pub_schema,
-      const std::string& pub_uri) :
+      const std::string& pub_uri,
+      const jws::json& pub_schema) :
       _client(pub_uri) {
       _pub_validator = jws::load_validator(pub_schema);
     }
@@ -18,17 +18,17 @@ namespace jwspubctrl {
     jws::json_validator _pub_validator;
   };
 
-  SubClient::SubClient(const jws::json& pub_schema, const std::string& pub_uri) :
-    _detail(new Detail(pub_schema, pub_uri)) {
+  SubClient::SubClient(const std::string& pub_uri, const jws::json& pub_schema) :
+    _detail(new Detail(pub_uri, pub_schema)) {
   }
 
-  SubClient::SubClient(const std::string& pub_schema_filename, const std::string& pub_uri) {
+  SubClient::SubClient(const std::string& pub_uri, const std::string& pub_schema_filename) {
     auto pub_schema = !pub_schema_filename.empty() ? jws::load_json(pub_schema_filename) : jws::json{};
-    _detail.reset(new Detail(pub_schema, pub_uri));
+    _detail.reset(new Detail(pub_uri, pub_schema));
   }
 
-  SubClient::SubClient(const char* pub_schema_filename, const std::string& pub_uri) :
-    SubClient(std::string(pub_schema_filename), pub_uri) {
+  SubClient::SubClient(const std::string& pub_uri, const char* pub_schema_filename) :
+    SubClient(pub_uri, std::string(pub_schema_filename)) {
   }
 
   SubClient::~SubClient() {

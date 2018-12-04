@@ -38,9 +38,9 @@ int main(int argc, char** argv) {
 
   jwspubctrl::Server server(time_server_ctrl_schema, time_server_ctrl_reply_schema);
   server.add_publish_endpoint("/pub", time_report_schema);
-  cout << "Start server" << endl;
-  cout << "  * publish: " << wspubctrl::default_pub_uri << endl;;
-  cout << "  * control: " << wspubctrl::default_ctrl_uri << endl;;
+  cout << "Start server on port " << wspubctrl::default_port << endl;
+  cout << "  * publish: /pub" << endl;
+  cout << "  * control: /ctrl" << endl;
 
   string format = "%Y-%m-%d %X";
 

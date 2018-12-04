@@ -12,19 +12,19 @@ namespace jwspubctrl {
   class CtrlClient {
     public:
       CtrlClient(
+        const std::string& ctrl_uri,
         const jws::json& ctrl_request_schema,
-        const jws::json& ctrl_reply_schema,
-        const std::string& ctrl_uri = wspubctrl::default_ctrl_uri);
+        const jws::json& ctrl_reply_schema);
 
       CtrlClient(
+        const std::string& ctrl_uri,
         const std::string& ctrl_request_schema_filename,
-        const std::string& ctrl_reply_schema_filename,
-        const std::string& ctrl_uri = wspubctrl::default_ctrl_uri);
+        const std::string& ctrl_reply_schema_filename);
 
       CtrlClient(
+        const std::string& ctrl_uri,
         const char* ctrl_request_schema_filename,
-        const char* ctrl_reply_schema_filename,
-        const std::string& ctrl_uri = wspubctrl::default_ctrl_uri);
+        const char* ctrl_reply_schema_filename);
 
       ~CtrlClient();
 

@@ -21,8 +21,8 @@ int main(int argc, char* argv[]) {
   cout << "Load " << argv[2] << endl;
   auto pubstring_ctrl_reply_schema = jws::load_json(argv[2]);
 
-  jwspubctrl::SubClient sub_client(json{});
-  jwspubctrl::CtrlClient ctrl_client(pubstring_ctrl_schema, pubstring_ctrl_reply_schema);
+  jwspubctrl::SubClient sub_client("localhost:5554/pub", json{});
+  jwspubctrl::CtrlClient ctrl_client("localhost:5554/ctrl", pubstring_ctrl_schema, pubstring_ctrl_reply_schema);
 
   int i = 0;
   int desired_size = 1;
