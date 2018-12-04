@@ -35,7 +35,8 @@ int main(int argc, char** argv) {
   auto ctrl_reply_schema = jws::load_json(argv[2]);
 
   cout << "Start server" << endl;
-  jwspubctrl::Server server({}, ctrl_request_schema, ctrl_reply_schema);
+  jwspubctrl::Server server(ctrl_request_schema, ctrl_reply_schema);
+  server.add_publish_endpoint("/pub");
   cout << "  * publish: " << wspubctrl::default_pub_uri << endl;;
   cout << "  * control: " << wspubctrl::default_ctrl_uri << endl;;
 
@@ -46,7 +47,7 @@ int main(int argc, char** argv) {
 
     // Check for ctrl request to change the text
     int timeout_ms = 0;
-    server.wait_for_request(timeout_ms,
+    server.handle_request(timeout_ms,
       [&](const json& request_json) {
         // Handle format request.
         //cout << "Change format: " << format << endl;
@@ -91,7 +92,7 @@ int main(int argc, char** argv) {
     }
     ++val;
 
-    server.publish_raw(ss.str());
+    server.send_string("/pub", ss.str());
   }
 }
 

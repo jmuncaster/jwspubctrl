@@ -34,6 +34,10 @@ namespace jwspubctrl {
   SubClient::~SubClient() {
   }
 
+  void SubClient::start() {
+    _detail->_client.start();
+  }
+
   jws::json SubClient::wait_for_data(int timeout_ms) {
     auto data = _detail->_client.wait_for_data(timeout_ms);
     auto data_json = jws::json::parse(data);

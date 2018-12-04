@@ -33,6 +33,7 @@ int main(int argc, char* argv[]) {
   thread sub_thread([&]() {
     try {
       jwspubctrl::SubClient sub_client(time_report_schema);
+      sub_client.start();
       while (!quit) {
         try {
           auto data_json = sub_client.wait_for_data(timeout_ms);

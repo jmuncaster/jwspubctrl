@@ -36,18 +36,21 @@ int main(int argc, char** argv) {
   cout << "Load " << argv[3] << endl;
   auto time_server_ctrl_reply_schema = jws::load_json(argv[3]);
 
-  jwspubctrl::Server server(time_report_schema, time_server_ctrl_schema, time_server_ctrl_reply_schema);
+  jwspubctrl::Server server(time_server_ctrl_schema, time_server_ctrl_reply_schema);
+  server.add_publish_endpoint("/pub", time_report_schema);
   cout << "Start server" << endl;
   cout << "  * publish: " << wspubctrl::default_pub_uri << endl;;
   cout << "  * control: " << wspubctrl::default_ctrl_uri << endl;;
 
   string format = "%Y-%m-%d %X";
 
+  server.start();
+
   while (true) {
 
     // Check for ctrl request to change the text
     int timeout_ms = 1000;
-    server.wait_for_request(timeout_ms, [&](const json& request_json) {
+    server.handle_request(timeout_ms, [&](const json& request_json) {
 
         // Handle format request.
         //cout << "Change format: " << format << endl;
@@ -67,7 +70,7 @@ int main(int argc, char** argv) {
       });
 
     // Do some 'work' and publish
-    server.publish_data({{"datetime", current_time_and_date(format)}});
+    server.send_json("/pub", {{"datetime", current_time_and_date(format)}});
   }
 }
 
