@@ -25,19 +25,22 @@ int main(int argc, char** argv) {
   if (argc != 3) {
     cout << "example of publishing a string as raw data while using json for ctrl messages" << endl;
     cout << "usage: pubstring <ctrl_request.json> <ctrl_reply.json>" << endl;
+    cout << "example: ./pubstring_server ../examples/pubstring/schemas/ctrl_request.json ../examples/pubstring/schemas/ctrl_reply.json" << endl;
     return 1;
   }
 
-  cout << "Load " << argv[1] << endl;
+  cout << "Loading schemas..." << endl;
+  cout << "  Load " << argv[1] << endl;
   auto ctrl_request_schema = jws::load_json(argv[1]);
-
-  cout << "Load " << argv[2] << endl;
+  cout << "  Load " << argv[2] << endl;
   auto ctrl_reply_schema = jws::load_json(argv[2]);
 
   cout << "Start server" << endl;
-  jwspubctrl::Server server({}, ctrl_request_schema, ctrl_reply_schema);
-  cout << "  * publish: " << wspubctrl::default_pub_uri << endl;;
-  cout << "  * control: " << wspubctrl::default_ctrl_uri << endl;;
+  cout << "  * control: /ctrl" << endl;
+  cout << "  * publish: /pub" << endl;
+  jwspubctrl::Server server(5554, "/ctrl", ctrl_request_schema, ctrl_reply_schema);
+  server.add_publish_endpoint("/pub", {});
+  server.start();
 
   int message_size = 1024;
   std::uint16_t val = 0;
@@ -46,7 +49,7 @@ int main(int argc, char** argv) {
 
     // Check for ctrl request to change the text
     int timeout_ms = 0;
-    server.wait_for_request(timeout_ms,
+    server.handle_request(timeout_ms,
       [&](const json& request_json) {
         // Handle format request.
         //cout << "Change format: " << format << endl;
@@ -91,7 +94,7 @@ int main(int argc, char** argv) {
     }
     ++val;
 
-    server.publish_raw(ss.str());
+    server.send("/pub", ss.str());
   }
 }
 
