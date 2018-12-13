@@ -13,39 +13,48 @@ namespace jwspubctrl {
   class Server {
     public:
       Server(
-        const jws::json& publish_schema = {},
+        int port = wspubctrl::default_port,
+        const std::string& ctrl_endpoint = wspubctrl::default_ctrl_endpoint,
         const jws::json& ctrl_request_schema = {},
-        const jws::json& ctrl_reply_schema = {},
-        int pub_port = wspubctrl::default_port);
+        const jws::json& ctrl_reply_schema = {}
+        );
 
       Server(
-        const std::string& publish_schema_filename,
+        int port = wspubctrl::default_port,
+        const std::string& ctrl_endpoint = wspubctrl::default_ctrl_endpoint,
         const std::string& ctrl_request_schema_filename = "",
-        const std::string& ctrl_reply_schema_filename = "",
-        int pub_port = wspubctrl::default_port);
+        const std::string& ctrl_reply_schema_filename = ""
+        );
 
       Server(
-        const char* publish_schema_filename,
+        int port = wspubctrl::default_port,
+        const std::string& ctrl_endpoint = wspubctrl::default_ctrl_endpoint,
         const char* ctrl_request_schema_filename = "",
-        const char* ctrl_reply_schema_filename = "",
-        int pub_port = wspubctrl::default_port);
+        const char* ctrl_reply_schema_filename = ""
+        );
 
       ~Server();
+
+      void start();
 
       // Polls ctrl socket for request. If there is a request, respond with reply.
       // @param request_handler: Callback that is called if and only if there is a request.
       // @returns true if a request was handled.
       typedef std::function<jws::json(const jws::json&)> request_callback_t;
       typedef std::function<jws::json(const std::exception&)> error_callback_t;
-      bool wait_for_request(
+      bool handle_request(
         int timeout_ms,
         request_callback_t request_handler,
         error_callback_t error_handler);
 
-      // Publish a message to the pub socket
-      void publish_data(const jws::json& payload);
-      void publish_raw(const std::string& payload);
+      // Add a publish socket (e.g., "/pub")
+      void add_publish_endpoint(const std::string& endpoint, const jws::json& schema = {});
 
+      // Publish a message to a pub endpoint, with schema validation.
+      void send(const std::string& endpoint, const jws::json& payload);
+
+      // Publish raw string to a pub endpoint.
+      void send(const std::string& endpoint, const std::string& payload);
 
     private:
       struct Detail;
