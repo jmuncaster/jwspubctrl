@@ -38,7 +38,7 @@ $ cmake --build .
 
 To build examples, configure with
 ```bash
-cmake -D BUILD_jwsPUBCTRL_EXAMPLES=ON
+cmake -D BUILD_EXAMPLES=ON
 ```
 
 Server: See examples/time_server.cpp
