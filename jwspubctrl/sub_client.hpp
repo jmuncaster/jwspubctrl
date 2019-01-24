@@ -27,9 +27,23 @@ namespace jwspubctrl {
 
       // Polls subscription for data
       // @param timeout_ms: Wait for this long for data. -1 means wait forever.
+      // @returns received data in validated json format
+      // @throws on socket error
+      // @returns true on success, false on timeout
+       bool poll_json(jws::json& data, int timeout_ms = wspubctrl::forever);
+
+      // Polls subscription for data
+      // @param timeout_ms: Wait for this long for data. -1 means wait forever.
       // @returns received raw data as string
       // @throws on socket error or timeout
       std::string poll_string(int timeout_ms = wspubctrl::forever);
+
+      // Polls subscription for data
+      // @param timeout_ms: Wait for this long for data. -1 means wait forever.
+      // @returns received data in validated json format
+      // @throws on socket error
+      // @returns true on success, false on timeout
+       bool poll_string(std::string& data, int timeout_ms = wspubctrl::forever);
 
     private:
       struct Detail;

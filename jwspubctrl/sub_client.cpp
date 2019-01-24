@@ -40,8 +40,26 @@ namespace jwspubctrl {
     return data_json;
   }
 
+  bool SubClient::poll_json(jws::json& data_json, int timeout_ms) {
+    // Grab data, return if timeout
+    std::string data;
+    auto success = _detail->_client.poll(data, timeout_ms);
+    if (!success) {
+      return false;
+    }
+
+    // Validate json and return
+    data_json = jws::json::parse(data);
+    _detail->_pub_validator.validate(data_json);
+    return true;
+  }
+
   std::string SubClient::poll_string(int timeout_ms) {
     return _detail->_client.poll(timeout_ms);
+  }
+
+  bool SubClient::poll_string(std::string& data, int timeout_ms) {
+    return _detail->_client.poll(data, timeout_ms);
   }
 
 }
