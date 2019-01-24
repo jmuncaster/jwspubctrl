@@ -8,8 +8,6 @@
 using namespace std;
 using jws::json;
 
-const int timeout_ms = 5000;
-
 int main(int argc, char* argv[]) {
 
   if (argc != 6) {

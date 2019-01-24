@@ -19,20 +19,6 @@ namespace jwspubctrl {
         const jws::json& ctrl_reply_schema = {}
         );
 
-      Server(
-        int port = wspubctrl::default_port,
-        const std::string& ctrl_endpoint = wspubctrl::default_ctrl_endpoint,
-        const std::string& ctrl_request_schema_filename = "",
-        const std::string& ctrl_reply_schema_filename = ""
-        );
-
-      Server(
-        int port = wspubctrl::default_port,
-        const std::string& ctrl_endpoint = wspubctrl::default_ctrl_endpoint,
-        const char* ctrl_request_schema_filename = "",
-        const char* ctrl_reply_schema_filename = ""
-        );
-
       ~Server();
 
       void start();

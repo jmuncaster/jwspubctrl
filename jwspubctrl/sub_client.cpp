@@ -22,15 +22,6 @@ namespace jwspubctrl {
     : _detail(new Detail(pub_uri, pub_schema)) {
   }
 
-  SubClient::SubClient(const std::string& pub_uri, const std::string& pub_schema_filename) {
-    auto pub_schema = !pub_schema_filename.empty() ? jws::load_json(pub_schema_filename) : jws::json{};
-    _detail.reset(new Detail(pub_uri, pub_schema));
-  }
-
-  SubClient::SubClient(const std::string& pub_uri, const char* pub_schema_filename)
-    : SubClient(pub_uri, std::string(pub_schema_filename)) {
-  }
-
   SubClient::~SubClient() {
   }
 
