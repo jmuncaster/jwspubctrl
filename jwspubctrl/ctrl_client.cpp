@@ -28,20 +28,6 @@ namespace jwspubctrl {
     : _detail(new Detail(ctrl_uri, ctrl_request_schema, ctrl_reply_schema)) {
   }
 
-  CtrlClient::CtrlClient(
-      const std::string& ctrl_uri,
-      const std::string& ctrl_request_schema_filename,
-      const std::string& ctrl_reply_schema_filename)
-      : _detail(new Detail(ctrl_uri, jws::load_json(ctrl_request_schema_filename), jws::load_json(ctrl_reply_schema_filename))) {
-  }
-
-  CtrlClient::CtrlClient(
-      const std::string& ctrl_uri,
-      const char* ctrl_request_schema_filename,
-      const char* ctrl_reply_schema_filename)
-      : CtrlClient(ctrl_uri, std::string(ctrl_request_schema_filename), std::string(ctrl_reply_schema_filename)) {
-  }
-
   CtrlClient::~CtrlClient() {
   }
 

@@ -45,31 +45,6 @@ namespace jwspubctrl {
     : _detail(new Detail(port, ctrl_endpoint, ctrl_request_schema, ctrl_reply_schema)) {
   }
 
-  Server::Server(
-    int port,
-    const string& ctrl_endpoint,
-    const std::string& ctrl_request_schema_filename,
-    const std::string& ctrl_reply_schema_filename
-    ) {
-    // Load schema or leave empty if filename is empty
-    auto ctrl_request_schema = !ctrl_request_schema_filename.empty() ? jws::load_json(ctrl_request_schema_filename) : jws::json{};
-    auto ctrl_reply_schema =     !ctrl_reply_schema_filename.empty() ? jws::load_json(ctrl_reply_schema_filename) : jws::json{};
-    _detail.reset(new Detail(port, ctrl_endpoint, ctrl_request_schema, ctrl_reply_schema));
-  }
-
-  Server::Server(
-    int port,
-    const string& ctrl_endpoint,
-    const char* ctrl_request_schema_filename,
-    const char* ctrl_reply_schema_filename
-    )
-    : Server(
-        port,
-        ctrl_endpoint,
-        std::string(ctrl_request_schema_filename),
-        std::string(ctrl_reply_schema_filename)) {
-  }
-
   Server::~Server() { // req'd for pimpl pattern
   }
 

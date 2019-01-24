@@ -12,15 +12,7 @@ namespace jwspubctrl {
     public:
       SubClient(
         const std::string& pub_uri,
-        const jws::json& pub_schema);
-
-      SubClient(
-        const std::string& pub_uri,
-        const std::string& pub_schema_filename);
-
-      SubClient(
-        const std::string& pub_uri,
-        const char* pub_schema_filename);
+        const jws::json& pub_schema = {});
 
       ~SubClient();
 
