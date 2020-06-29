@@ -19,6 +19,13 @@ The networking backend is based on [Simple-Websocket-Server](https://github.com/
 ## Build
 
 These instructions assume you are using [cmake](cmake.org).
+```bash
+$ mkdir build && cd build
+$ cmake -D BUILD_EXAMPLES=ON -D BUILD_TESTS=ON ..
+$ make
+```
+
+or, to include in your project
 
 In your CMakeLists.txt, add:
 ```CMake
